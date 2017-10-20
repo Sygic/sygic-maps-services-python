@@ -6,4 +6,25 @@ The Sygic Maps Python Client is simplest way how to use Sygic Maps services from
 
 List of supported services in this package
 
-- [https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api] (Geocoding API)
+- [Geocoding API] (https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api)
+
+## Installation
+
+    $ pip install -U sygicmaps
+    
+## Usage
+
+Example of using Sygic [Geocoding API] (https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api). Before use ask for API key from ...
+
+```python
+import sygicmaps.client as s 
+
+# Create a client with your API key 
+client = s.Client(key='Your API key')
+
+# Geocoding an fulltext address
+result_geocoding = client.geocode("Bernauerstrasse 10 Berlin")
+
+# Reverse geocode coordinates
+result_reverse_geocoding = client.reverse_geocode(location="48.204876,16.351456")
+
