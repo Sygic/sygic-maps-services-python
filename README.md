@@ -26,5 +26,5 @@ client = s.Client(key='Your API key')
 result_geocoding = client.geocode("Bernauerstrasse 10 Berlin")
 
 # Reverse geocode a coordinates
-result_reverse_geocoding = client.reverse_geocode(location="48.204876,16.351456")
+result_reverse_geocoding = client.reverse_geocode("48.204876,16.351456")
 
