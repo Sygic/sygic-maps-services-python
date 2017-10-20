@@ -6,7 +6,7 @@ The Sygic Maps Python Client is simplest way how to use Sygic Maps services from
 
 List of supported services in this package
 
-- [Geocoding API] (https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api)
+- [Geocoding API](https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api)
 
 ## Installation
 
@@ -14,7 +14,7 @@ List of supported services in this package
     
 ## Usage
 
-Example of using Sygic [Geocoding API] (https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api). Before use ask for an API key from the [Sygic page](http://www.sygic.com/business/request-sygic-maps-trial-api-key).
+Example of using Sygic [Geocoding API](https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api). Before use ask for an API key from the [Sygic page](http://www.sygic.com/business/request-sygic-maps-trial-api-key).
 
 ```python
 import sygicmaps.client as s 
