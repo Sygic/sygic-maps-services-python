@@ -1,6 +1,12 @@
 import requests
+import json
+import time
+
+from sygicmaps.models.input import Input
 
 SERVICES_URL = "https://eu-geocoding.api.sygic.com/v0/api/"
+
+GEOCODE_BATCH_URL_PATH = "batch/geocode"
 
 
 class Client(object):
@@ -10,6 +16,14 @@ class Client(object):
 
         self.session = requests.Session()
         self.key = key
+
+    def __to_inputs_data(self, input):
+        if type(input) is str:
+            return Input(input)
+        return input
+
+    def __remove_nulls(self, d):
+        return {k: v for k, v in d.items() if v is not None}
 
     def geocode(self, location=None, country=None, city=None, suburb=None, street=None, house_number=None,
                 zip=None, admin_level_1=None):
@@ -59,4 +73,49 @@ class Client(object):
         api_status = body["status"]
         if api_status == "OK" or api_status == "NO_RESULTS":
             return body.get("results", [])
+
+    def geocode_batch(self, inputs=[]):
+        if len(inputs) == 0:
+            raise ValueError("Param locations has to contain some items.")
+        if len(inputs) >= 10000:
+            raise ValueError("Param locations has to be less than 10000.")
+
+        inputs_data = list(map(self.__to_inputs_data, inputs))
+        json_string = json.dumps(inputs_data, default=lambda x: x.__dict__)
+
+        print(type(json_string))
+
+        post_data = list(json.loads(json_string))
+        post_data = list(map(self.__remove_nulls, post_data))
+
+        url = SERVICES_URL + GEOCODE_BATCH_URL_PATH
+        params = {"key": self.key}
+        r = requests.post(url, data=str(post_data), params=params, headers={'Content-type': 'application/json'})
+
+        results_url = r.headers.get('location')
+
+        r = requests.get(results_url)
+
+        while True:
+            retry_after = r.headers.get('retry-after')
+            print('.', end='')
+            if retry_after is not None:
+                time.sleep(int(retry_after))
+                r = requests.get(results_url, verify=False)
+                continue
+            break;
+
+        body = r.json()
+
+        api_status = body["status"]
+        if api_status == "OK" or api_status == "NO_RESULTS":
+            return body.get("results", [])
+
+
+
+
+
+
+
+
 
