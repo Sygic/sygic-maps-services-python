@@ -1,9 +1,9 @@
 from setuptools import setup
 
-requirements = ['requests', 'json', 'time']
+requirements = ['requests']
 
 setup(name='sygicmaps',
-      version='0.1-dev',
+      version='0.2.5-dev',
       description='Python client library Sygic maps services.',
       scripts=[],
       url='https://github.com/Sygic/sygic-maps-services-python',

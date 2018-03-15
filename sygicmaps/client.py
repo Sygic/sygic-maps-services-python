@@ -1,8 +1,10 @@
-import requests
 import json
 import time
 
-from sygicmaps.models.input import Input
+import requests
+
+from sygicmaps.input import Input
+
 
 SERVICES_URL = "https://eu-geocoding.api.sygic.com/v0/api/"
 
@@ -85,8 +87,6 @@ class Client(object):
         inputs_data = list(map(self.__to_inputs_data, inputs))
         json_string = json.dumps(inputs_data, default=lambda x: x.__dict__)
 
-        print(type(json_string))
-
         post_data = list(json.loads(json_string))
         post_data = list(map(self.__remove_nulls, post_data))
 
@@ -101,7 +101,6 @@ class Client(object):
 
         while True:
             retry_after = r.headers.get('retry-after')
-            print('.', end='')
             if retry_after is not None:
                 time.sleep(int(retry_after))
                 r = requests.get(results_url)
