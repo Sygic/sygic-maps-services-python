@@ -16,15 +16,32 @@ List of supported services in this package
 
 Example of using Sygic [Geocoding API](https://www.sygic.com/developers/maps-api-services/geolocation-and-search-api). Before use ask for an API key from the [Sygic page](http://www.sygic.com/business/request-sygic-maps-trial-api-key).
 
+### Client initialization
+
 ```python
 import sygicmaps.client as s 
 
 # Create a client with your API key 
 client = s.Client(key='Your API key')
 
+```
+### Geocoding
+
+```python
 # Geocoding an fulltext address
 result_geocoding = client.geocode("Bernauerstrasse 10 Berlin")
 
+````
+
+### Reverse geocoding
+
+```python
 # Reverse geocode a coordinates
 result_reverse_geocoding = client.reverse_geocode("48.204876,16.351456")
+```
 
+### Batch geocoding
+```python
+# Batch geocode of list of fulltext addresses
+result_batch_geocoding = client.geocode_batch(["Ashton Drive 3 Doncaster", "Rustoord 38 Beesel", "Via Stilicone 36 Milano"])
+```
