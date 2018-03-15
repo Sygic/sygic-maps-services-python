@@ -74,7 +74,9 @@ class Client(object):
         if api_status == "OK" or api_status == "NO_RESULTS":
             return body.get("results", [])
 
-    def geocode_batch(self, inputs=[]):
+    def geocode_batch(self, inputs: list):
+        if type(inputs) is str:
+            inputs = [inputs]
         if len(inputs) == 0:
             raise ValueError("Param locations has to contain some items.")
         if len(inputs) >= 10000:
@@ -90,7 +92,8 @@ class Client(object):
 
         url = SERVICES_URL + GEOCODE_BATCH_URL_PATH
         params = {"key": self.key}
-        r = requests.post(url, data=str(post_data), params=params, headers={'Content-type': 'application/json'})
+        post_body = json.dumps(post_data)
+        r = requests.post(url, data=post_body, params=params, headers={'Content-type': 'application/json'})
 
         results_url = r.headers.get('location')
 
@@ -101,7 +104,7 @@ class Client(object):
             print('.', end='')
             if retry_after is not None:
                 time.sleep(int(retry_after))
-                r = requests.get(results_url, verify=False)
+                r = requests.get(results_url)
                 continue
             break;
 
