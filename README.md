@@ -19,7 +19,7 @@ Example of using Sygic [Geocoding API](https://www.sygic.com/developers/maps-api
 ### Client initialization
 
 ```python
-import sygicmaps.client as s 
+import sygicmaps as s 
 
 # Create a client with your API key 
 client = s.Client(key='Your API key')
