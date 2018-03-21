@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Sygic/sygic-maps-services-python.svg?branch=master)](https://travis-ci.org/Sygic/sygic-maps-services-python)
+
 # Sygic Maps Python Client
 
 *Current repo is under development. It contains only subset of desired functionality.
