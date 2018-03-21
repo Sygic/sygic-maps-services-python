@@ -141,3 +141,7 @@ tmtagsHistory
 *.sublime-project
 *.sublime-workspace
 .bundle
+
+tmp\.py
+
+example\.py
