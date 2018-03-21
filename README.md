@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Sygic/sygic-maps-services-python.svg?branch=master)](https://travis-ci.org/Sygic/sygic-maps-services-python)
+[![Build Status](https://travis-ci.org/Sygic/sygic-maps-services-python.svg?branch=master)](https://travis-ci.org/Sygic/sygic-maps-services-python) [![PyPI version](https://badge.fury.io/py/sygicmaps.svg)](https://badge.fury.io/py/sygicmaps)
 
 # Sygic Maps Python Client
 
