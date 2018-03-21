@@ -6,15 +6,22 @@ import requests
 from sygicmaps.input import Input
 
 
-SERVICES_URL = "https://eu-geocoding.api.sygic.com/v0/api/"
+SERVICES_URL = "https://{}-geocoding.api.sygic.com"
 
-GEOCODE_BATCH_URL_PATH = "batch/geocode"
+GEOCODE_URL_PATH = "/v0/api/geocode"
+GEOCODE_BATCH_URL_PATH = "/v0/api/batch/geocode"
+REVERSE_GEOCODE_URL_PATH = "/v0/api/reversegeocode"
 
 
 class Client(object):
-    def __init__(self, key=None):
+    def __init__(self, key=None, region='eu', custom_url=None):
         if not key:
             raise ValueError("API key is not set.")
+
+        if not custom_url:
+            self.services_url = SERVICES_URL.format(region)
+        else:
+            self.services_url = custom_url
 
         self.session = requests.Session()
         self.key = key
@@ -51,7 +58,7 @@ class Client(object):
 
         requests_method = self.session.get
 
-        url = SERVICES_URL + "/geocode"
+        url = self.services_url + GEOCODE_URL_PATH
         response = requests_method(url, params=params)
         body = response.json()
 
@@ -68,7 +75,7 @@ class Client(object):
 
         requests_method = self.session.get
 
-        url = SERVICES_URL + "/reversegeocode"
+        url = self.services_url + REVERSE_GEOCODE_URL_PATH
         response = requests_method(url, params=params)
         body = response.json()
 
@@ -90,7 +97,7 @@ class Client(object):
         post_data = list(json.loads(json_string))
         post_data = list(map(self.__remove_nulls, post_data))
 
-        url = SERVICES_URL + GEOCODE_BATCH_URL_PATH
+        url = self.services_url + GEOCODE_BATCH_URL_PATH
         params = {"key": self.key}
         post_body = json.dumps(post_data)
         r = requests.post(url, data=post_body, params=params, headers={'Content-type': 'application/json'})
