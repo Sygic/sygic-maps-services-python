@@ -1,10 +1,7 @@
 import sygicmaps as c
-import responses
-import requests
 import requests_mock
 import unittest as ut
 import json
-import os
 
 
 class ClientTests(ut.TestCase):
