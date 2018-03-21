@@ -1,11 +1,15 @@
 language: python
-
 matrix:
   include:
-    - { python: '3.6', env: TOXENV=py36 }
-
+  - python: '3.6'
+    env: TOXENV=py36
 install:
-  - pip install tox
-
+- pip install tox
 script:
-  - tox
+- tox
+
+deploy:
+  provider: pypi
+  user: "jcechovsky"
+  password:
+    secure: JURfQ/KPl40NbXBSDVR4Vn7JHBNei2HDV0G/xMzRWWdpxWqu/BtSUKFEbZh/IgImahbUKZGuCrPwByZKamAjzETBcC57N7KE/hiw216YDXHvyfYqW1LKSW1Byo5PzHZpPpi483dBwLhghVJY7VpFVoxe8RyVq6aXxqBQQQzPnGGi460JVqhQcw9Qgk3sSQTy9bbeRYHq8zeE1avWpLVg8hwykauXaqA2KzmymoXb6PyzrhPd1bWg0TtUuSe/PMGAcbtaotPQ98zIqZUSHBGl/HjeoOC9dVdG2D00LS9E1K6Vq7Lj7WCy3s24qpAr8UlmIwG26SlnOYjEQ1yECIVOAuDlX5D7bNUvC8dBGdixvr3uxDwgcfgKRM/sditOK9MfRXjfBTIFb3UscmDcBCcNNi8SGm1zOXXEj9S3VB0hBl84lujkdswiAvXOZHTSAvYMgOBEkXpeqz4mvSc=
