@@ -6,7 +6,7 @@ import requests
 from sygicmaps.input import Input
 
 
-SERVICES_URL = "https://eu-geocoding.api.sygic.com"
+SERVICES_URL = "https://{}-geocoding.api.sygic.com"
 
 GEOCODE_URL_PATH = "/v0/api/geocode"
 GEOCODE_BATCH_URL_PATH = "/v0/api/batch/geocode"
@@ -14,12 +14,12 @@ REVERSE_GEOCODE_URL_PATH = "/v0/api/reversegeocode"
 
 
 class Client(object):
-    def __init__(self, key=None, custom_url=None):
+    def __init__(self, key=None, region='eu', custom_url=None):
         if not key:
             raise ValueError("API key is not set.")
 
         if not custom_url:
-            self.services_url = SERVICES_URL
+            self.services_url = SERVICES_URL.format(region)
         else:
             self.services_url = custom_url
 
