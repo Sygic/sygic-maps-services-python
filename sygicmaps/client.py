@@ -26,37 +26,27 @@ class Client(object):
         self.session = requests.Session()
         self.key = key
 
-    def __to_inputs_data(self, input):
+    @staticmethod
+    def __to_inputs_data(input):
         if type(input) is str:
             return Input(input)
         return input
 
-    def __remove_nulls(self, d):
+    @staticmethod
+    def __remove_nulls(d):
         return {k: v for k, v in d.items() if v is not None}
 
     def __get_services_url_geocode(self):
-        if self.custom_url:
-            return self.custom_url
-        else:
-            return self.services_url + GEOCODE_URL_PATH.format(self.version)
+        return self.services_url + GEOCODE_URL_PATH.format(self.version)
 
     def __get_services_url_reverse_geocode_batch(self):
-        if self.custom_url:
-            return self.custom_url
-        else:
-            return self.services_url + REVERSE_GEOCODE_BATCH_URL_PATH.format(self.version)
+        return self.services_url + REVERSE_GEOCODE_BATCH_URL_PATH.format(self.version)
 
     def __get_services_url_geocode_batch(self):
-        if self.custom_url:
-            return self.custom_url
-        else:
-            return self.services_url + GEOCODE_BATCH_URL_PATH.format(self.version)
+        return self.services_url + GEOCODE_BATCH_URL_PATH.format(self.version)
 
     def __get_services_url_reverse_geocode(self):
-        if self.custom_url:
-            return self.custom_url
-        else:
-            return self.services_url + REVERSE_GEOCODE_URL_PATH.format(self.version)
+        return self.services_url + REVERSE_GEOCODE_URL_PATH.format(self.version)
 
     @staticmethod
     def __make_coords_dict_helper(line_of_coords):
