@@ -19,8 +19,10 @@ class Client(object):
         if not key:
             raise ValueError("API key is not set.")
 
-        self.custom_url = custom_url
-        self.services_url = SERVICES_URL.format(region)
+        if custom_url:
+            self.services_url = custom_url
+        else:
+            self.services_url = SERVICES_URL.format(region)
         self.version = version
 
         self.session = requests.Session()
