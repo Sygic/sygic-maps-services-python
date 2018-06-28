@@ -15,7 +15,7 @@ REVERSE_GEOCODE_BATCH_URL_PATH = "/{}/api/batch/reversegeocode"
 
 
 class Client(object):
-    def __init__(self, key=None, region='eu', custom_url=None):
+    def __init__(self, key=None, region='eu', custom_url=None, version='v0'):
         if not key:
             raise ValueError("API key is not set.")
 
