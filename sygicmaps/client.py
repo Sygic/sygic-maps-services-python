@@ -40,7 +40,7 @@ class Client(object):
         else:
             return self.services_url + GEOCODE_URL_PATH.format(self.version)
 
-    def __get_services_url_geocode_batch_reverse(self):
+    def __get_services_url_reverse_geocode_batch(self):
         if self.custom_url:
             return self.custom_url
         else:
@@ -52,7 +52,7 @@ class Client(object):
         else:
             return self.services_url + GEOCODE_BATCH_URL_PATH.format(self.version)
 
-    def __get_services_url_geocode_reverse(self):
+    def __get_services_url_reverse_geocode(self):
         if self.custom_url:
             return self.custom_url
         else:
@@ -104,7 +104,7 @@ class Client(object):
 
         requests_method = self.session.get
 
-        url = self.__get_services_url_geocode_reverse()
+        url = self.__get_services_url_reverse_geocode()
         response = requests_method(url, params=params)
         body = response.json()
 
@@ -151,7 +151,7 @@ class Client(object):
         json_string = json.dumps(inputs)
         post_data = list(json.loads(json_string))
 
-        services_url = self.__get_services_url_geocode_batch_reverse()
+        services_url = self.__get_services_url_reverse_geocode_batch()
 
         return self.__geocode_batch_base(post_data, services_url)
 
