@@ -18,7 +18,11 @@ class Client(object):
         if not key:
             raise ValueError("API key is not set.")
 
-        if not custom_url:
+        if custom_url:
+            self.services_url = custom_url
+            # If custom url is provided, ignore version
+            self.version = -1
+        else:
             self.services_url = SERVICES_URL.format(region)
         else:
             self.services_url = custom_url
@@ -33,6 +37,22 @@ class Client(object):
 
     def __remove_nulls(self, d):
         return {k: v for k, v in d.items() if v is not None}
+
+    def __get_services_url(self, reverse=False, batch=False, version=None):
+        if -1 == self.version:
+            # If custom url is provided, ignore version
+            return self.services_url
+        if not version:
+            # If no version is provided, use default
+            version = self.version
+        if reverse and not batch:
+            # If reverse geocoding requested, return correct url
+            return self.services_url + REVERSE_GEOCODE_URL_PATH.format(version)
+        if batch and not reverse:
+            # If batch geocoding requested, return correct url
+            return self.services_url + GEOCODE_BATCH_URL_PATH.format(version)
+        # Return geocode url
+        return self.services_url + GEOCODE_URL_PATH.format(version)
 
     def geocode(self, location=None, country=None, city=None, suburb=None, street=None, house_number=None,
                 zip=None, admin_level_1=None):
